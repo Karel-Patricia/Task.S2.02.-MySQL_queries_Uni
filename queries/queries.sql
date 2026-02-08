@@ -139,18 +139,20 @@ SELECT
 	p.apellido1, 
     p.apellido2, 
     p.nombre
-FROM persona p
-LEFT JOIN profesor pr
-	ON p.id = pr.id_profesor
-WHERE pr.id_departamento IS NULL
+FROM profesor pr
+JOIN persona p
+	ON pr.id_profesor = p.id
+LEFT JOIN departamento d
+	ON pr.id_departamento = d.id
+WHERE d.id IS NULL
 ;
 
 -- 12. Retorna un llistat amb els departaments que no tenen professors/es associats. (nombre)
 SELECT
 	d.nombre
-FROM profesor pr
-RIGHT JOIN departamento d
-	ON pr.id_departamento = d.id
+FROM departamento d
+LEFT JOIN profesor pr
+	ON d.id = pr.id_departamento
 WHERE pr.id_departamento IS NULL
 ;
 
@@ -179,13 +181,13 @@ WHERE a.id_profesor IS NULL
 
 -- 15. Retorna un llistat amb tots els departaments que no han impartit assignatures en cap curs escolar. (nombre)
 SELECT DISTINCT
-    d.nombre
+	d.nombre
 FROM departamento d
 LEFT JOIN profesor pr
-    ON d.id = pr.id_departamento
+	ON d.id = pr.id_departamento
 LEFT JOIN asignatura a
-    ON pr.id_profesor = a.id_profesor
-WHERE a.id_profesor IS NULL
+	ON pr.id_profesor = a.id_profesor
+WHERE a.id IS NULL
 ;
 
 -- 16. Retorna el nombre total d'alumnes que hi ha. (total)
