@@ -265,7 +265,7 @@ GROUP BY
 -- 23. Retorna un llistat que mostri quants alumnes s'han matriculat d'alguna assignatura en cadascun dels cursos escolars. El resultat haurà de mostrar dues columnes, una columna amb l'any d'inici del curs escolar i una altra amb el nombre d'alumnes matriculats. (anyo_inicio, total)
 SELECT
 	ce.anyo_inicio, 
-    SUM(asm.id_alumno) AS total
+    COUNT(asm.id_asignatura) AS total
 FROM alumno_se_matricula_asignatura asm
 JOIN curso_escolar ce
 	ON asm.id_curso_escolar = ce.id
